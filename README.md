@@ -1,0 +1,1 @@
+# global-result-handler-starter
