@@ -1,6 +1,5 @@
 package cn.gingo.global.result.handler.advice;
 
-import cn.gingo.global.result.handler.DefaultResponseCodeEnums;
 import cn.gingo.global.result.handler.annotation.ExceptionMapper;
 import cn.gingo.global.result.handler.bean.ResponseBean;
 import cn.gingo.global.result.handler.config.GlobalResultHandlerConfigProperties;
@@ -9,6 +8,8 @@ import java.util.Set;
 import javax.annotation.Resource;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
+
+import cn.gingo.global.result.handler.enums.DefaultResponseCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
 import org.springframework.validation.BindException;
@@ -66,7 +67,7 @@ public class GlobalExceptionAdvice {
     }
 
     //没有定义异常码，则用默认的
-    bean.setCode(DefaultResponseCodeEnums.DEFAULT_FAIL.getCode());
+    bean.setCode(DefaultResponseCode.DEFAULT_FAIL.getCode());
 
     if (exception instanceof BindException) {
 
@@ -114,7 +115,7 @@ public class GlobalExceptionAdvice {
     //给不按套路写代码的同事准备的
     if (exception instanceof Throwable) {
 
-      bean.setMsg(DefaultResponseCodeEnums.DEFAULT_FAIL.getMsg());
+      bean.setMsg(DefaultResponseCode.DEFAULT_FAIL.getMsg());
       return bean;
     }
 

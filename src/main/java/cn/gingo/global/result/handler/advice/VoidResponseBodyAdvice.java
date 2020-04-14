@@ -31,13 +31,11 @@ public class VoidResponseBodyAdvice implements ResponseBodyAdvice<Object> {
    * @param converterType 消息转换器
    * @return 是否对这种返回值进行处理
    */
-  @Override
   public boolean supports(MethodParameter returnType,
                           Class<? extends HttpMessageConverter<?>> converterType) {
     return returnType.getMethod().getReturnType().equals(Void.TYPE);
   }
 
-  @Override
   public Object beforeBodyWrite(Object body,
                                 MethodParameter returnType,
                                 MediaType selectedContentType,

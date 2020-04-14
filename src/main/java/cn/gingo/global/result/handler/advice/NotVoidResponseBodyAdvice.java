@@ -31,14 +31,12 @@ public class NotVoidResponseBodyAdvice implements ResponseBodyAdvice<Object> {
    * @param clazz           处理器
    * @return 是否支持
    */
-  @Override
   public boolean supports(MethodParameter methodParameter,
                           Class<? extends HttpMessageConverter<?>> clazz) {
     return !methodParameter.getMethod().getReturnType().equals(Void.TYPE)
         && MappingJackson2HttpMessageConverter.class.isAssignableFrom(clazz);
   }
 
-  @Override
   public Object beforeBodyWrite(Object body,
                                 MethodParameter methodParameter,
                                 MediaType mediaType,

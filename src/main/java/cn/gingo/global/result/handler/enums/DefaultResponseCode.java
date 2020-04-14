@@ -1,4 +1,4 @@
-package cn.gingo.global.result.handler;
+package cn.gingo.global.result.handler.enums;
 
 /**
  * <p>
@@ -15,7 +15,7 @@ package cn.gingo.global.result.handler;
  * @version 0.1
  * @since 0.1
  */
-public enum DefaultResponseCodeEnums {
+public enum DefaultResponseCode {
 
   /**
    * {@code DEFAULT_SUCCESS} 请求处理成功.
@@ -43,7 +43,7 @@ public enum DefaultResponseCodeEnums {
    * @param code 响应码
    * @param msg  响应信息
    */
-  DefaultResponseCodeEnums(int code, String msg) {
+  DefaultResponseCode(int code, String msg) {
     this.code = code;
     this.msg = msg;
   }

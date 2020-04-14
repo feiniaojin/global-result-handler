@@ -1,9 +1,10 @@
 package cn.gingo.global.result.handler.bean;
 
-import cn.gingo.global.result.handler.DefaultResponseCodeEnums;
-import java.util.HashMap;
-import java.util.Map;
+import cn.gingo.global.result.handler.enums.DefaultResponseCode;
 import lombok.Data;
+
+import java.util.Collections;
+import java.util.Map;
 
 /**
  * 包装成统一响应的JavaBean.
@@ -14,10 +15,10 @@ import lombok.Data;
 @Data
 public class ResponseBean {
 
-  private static final Map<Object, Object> DEFAULT_NULL = new HashMap<>();
+  private static final Map<Object, Object> DEFAULT_NULL = Collections.emptyMap();
 
-  private int code = DefaultResponseCodeEnums.DEFAULT_SUCCESS.getCode();
-  private String msg = DefaultResponseCodeEnums.DEFAULT_SUCCESS.getMsg();
+  private int code = DefaultResponseCode.DEFAULT_SUCCESS.getCode();
+  private String msg = DefaultResponseCode.DEFAULT_SUCCESS.getMsg();
   private Object data = DEFAULT_NULL;
 
   public ResponseBean() {
