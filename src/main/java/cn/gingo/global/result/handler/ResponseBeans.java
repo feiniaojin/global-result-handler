@@ -51,7 +51,6 @@ public final class ResponseBeans {
     ResponseBean bean = new ResponseBean();
     bean.setCode(exceptionMapper.code());
     bean.setMsg(exceptionMapper.msg());
-
     return bean;
   }
 }

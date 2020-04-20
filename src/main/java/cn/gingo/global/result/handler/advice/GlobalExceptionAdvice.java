@@ -48,29 +48,28 @@ public class GlobalExceptionAdvice {
 
     //根据异常匹配注解获取异常码和消息
     ExceptionMapper exceptionMapper = exception.getClass().getAnnotation(ExceptionMapper.class);
-    if (exceptionMapper != null) {
 
+    if (exceptionMapper != null) {
       bean.setCode(exceptionMapper.code());
       bean.setMsg(exceptionMapper.msg());
-      if (config.isPrint() && log.isDebugEnabled()) {
+      if (config.isPrintLog() && log.isDebugEnabled()) {
         log.debug(exceptionMapper.msg(), exception);
       }
       return bean;
     }
 
-    if (config.isPrint() && log.isDebugEnabled()) {
+    if (config.isPrintLog() && log.isDebugEnabled()) {
       log.debug(exception.getMessage(), exception);
     }
 
-    if (config.isPrint() && log.isInfoEnabled()) {
-      log.info(exception.getMessage());
+    if (config.isPrintLog() && log.isInfoEnabled()) {
+      log.info(exception.getMessage(),exception);
     }
 
     //没有定义异常码，则用默认的
     bean.setCode(DefaultResponseCode.DEFAULT_FAIL.getCode());
 
     if (exception instanceof BindException) {
-
       BindException exs = (BindException) exception;
       List<ObjectError> errors = exs.getAllErrors();
       StringBuilder sb = new StringBuilder("");
@@ -84,7 +83,6 @@ public class GlobalExceptionAdvice {
     }
 
     if (exception instanceof MethodArgumentNotValidException) {
-
       MethodArgumentNotValidException exs = (MethodArgumentNotValidException) exception;
       List<ObjectError> allErrors = exs.getBindingResult().getAllErrors();
       StringBuilder sb = new StringBuilder("");
@@ -98,9 +96,7 @@ public class GlobalExceptionAdvice {
     }
 
     if (exception instanceof ConstraintViolationException) {
-
       ConstraintViolationException exs = (ConstraintViolationException) exception;
-
       Set<ConstraintViolation<?>> violations = exs.getConstraintViolations();
       StringBuilder sb = new StringBuilder("");
       for (ConstraintViolation<?> item : violations) {
@@ -114,11 +110,9 @@ public class GlobalExceptionAdvice {
 
     //给不按套路写代码的同事准备的
     if (exception instanceof Throwable) {
-
       bean.setMsg(DefaultResponseCode.DEFAULT_FAIL.getMsg());
       return bean;
     }
-
     return bean;
   }
 }

@@ -18,5 +18,5 @@ public class GlobalResultHandlerConfigProperties {
   /**
    * 是否在异常处理器中打印日志，默认为false,不打印.
    */
-  private boolean print = false;
+  private boolean printLog = true;
 }
