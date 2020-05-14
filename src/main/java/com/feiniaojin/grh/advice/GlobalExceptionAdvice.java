@@ -27,8 +27,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @ControllerAdvice
 @Slf4j
-@Order(value = 100)
-public class GlobalExceptionAdvice {
+@Order(value = 1020)
+public class  GlobalExceptionAdvice {
 
   @Resource
   private GlobalResultHandlerConfigProperties config;

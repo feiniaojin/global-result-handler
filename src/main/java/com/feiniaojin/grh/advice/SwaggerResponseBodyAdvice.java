@@ -1,7 +1,9 @@
 package com.feiniaojin.grh.advice;
 
-import java.util.HashSet;
-import java.util.Set;
+import com.feiniaojin.grh.check.SwaggerChecker;
+import javax.annotation.Resource;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.core.MethodParameter;
@@ -26,25 +28,13 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
     "springfox.documentation.swagger2.web.Swagger2Controller"})
 public class SwaggerResponseBodyAdvice implements ResponseBodyAdvice<Object> {
 
-  private Set<Class> classSet = new HashSet<>();
-
-  /**
-   * 无参构造.
-   */
-  public SwaggerResponseBodyAdvice() {
-
-    try {
-      classSet.add(Class.forName("springfox.documentation.swagger.web.ApiResourceController"));
-      classSet.add(Class.forName("springfox.documentation.swagger2.web.Swagger2Controller"));
-    } catch (Exception e) {
-      log.debug("Can not find Swagger2 Classes", e);
-    }
-  }
+  @Resource
+  private SwaggerChecker swaggerChecker;
 
   @Override
   public boolean supports(MethodParameter methodParameter,
                           Class<? extends HttpMessageConverter<?>> clazz) {
-    if (classSet.contains(methodParameter.getContainingClass())) {
+    if (swaggerChecker.isSwaggerClass(methodParameter.getContainingClass())) {
       return true;
     }
 
@@ -56,6 +46,7 @@ public class SwaggerResponseBodyAdvice implements ResponseBodyAdvice<Object> {
                                 Class<? extends HttpMessageConverter<?>> clazz,
                                 ServerHttpRequest serverHttpRequest,
                                 ServerHttpResponse serverHttpResponse) {
+
     return o;
   }
 }

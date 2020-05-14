@@ -1,6 +1,7 @@
 package com.feiniaojin.grh.advice;
 
 import com.feiniaojin.grh.bean.ResponseBean;
+import com.feiniaojin.grh.check.SwaggerChecker;
 import com.feiniaojin.grh.config.GlobalResultHandlerConfigProperties;
 import javax.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +30,9 @@ public class NotVoidResponseBodyAdvice implements ResponseBodyAdvice<Object> {
   @Resource
   private GlobalResultHandlerConfigProperties config;
 
+  @Resource
+  private SwaggerChecker swaggerChecker;
+
   /**
    * 只处理不返回void的，并且MappingJackson2HttpMessageConverter支持的类型.
    *
@@ -51,13 +55,16 @@ public class NotVoidResponseBodyAdvice implements ResponseBodyAdvice<Object> {
                                 Class<? extends HttpMessageConverter<?>> clazz,
                                 ServerHttpRequest serverHttpRequest,
                                 ServerHttpResponse serverHttpResponse) {
-
     if (body == null) {
       return new ResponseBean();
-    } else if (!(body instanceof ResponseBean)) {
-      return new ResponseBean(body);
-    } else {
+    } else if (body instanceof ResponseBean
+        || swaggerChecker.isSwaggerClass(body)
+        || swaggerChecker.isSwaggerUrl(serverHttpRequest)) {
       return body;
+    } else {
+      return new ResponseBean(body);
     }
   }
+
+
 }

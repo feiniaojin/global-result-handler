@@ -21,7 +21,7 @@ import org.springframework.web.servlet.NoHandlerFoundException;
  */
 @ControllerAdvice
 @Slf4j
-@Order(value = 10)
+@Order(value = 1010)
 public class HttpExceptionAdvice {
 
   /**
