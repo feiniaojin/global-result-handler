@@ -1,12 +1,12 @@
-package cn.gingo.global.result.handler;
+package com.feiniaojin.grh;
 
-import cn.gingo.global.result.handler.annotation.ExceptionMapper;
-import cn.gingo.global.result.handler.bean.ResponseBean;
+import com.feiniaojin.grh.annotation.ExceptionMapper;
+import com.feiniaojin.grh.bean.ResponseBean;
 
 /**
  * 通过异常生成统一响应的工具类.
  *
- * @author qinyujie
+ * @author feiniaojin
  * @version 0.1
  * @since 0.1
  */

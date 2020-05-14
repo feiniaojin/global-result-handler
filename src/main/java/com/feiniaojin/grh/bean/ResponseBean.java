@@ -1,14 +1,14 @@
-package cn.gingo.global.result.handler.bean;
+package com.feiniaojin.grh.bean;
 
-import cn.gingo.global.result.handler.enums.DefaultResponseCode;
-import lombok.Data;
-
+import com.feiniaojin.grh.enums.DefaultResponseCode;
 import java.util.Collections;
 import java.util.Map;
+import lombok.Data;
 
 /**
  * 包装成统一响应的JavaBean.
- * @author qinyujie
+ *
+ * @author feiniaojin
  * @version 0.1
  * @since 0.1
  */

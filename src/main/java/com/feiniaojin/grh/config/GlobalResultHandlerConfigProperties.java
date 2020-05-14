@@ -1,4 +1,4 @@
-package cn.gingo.global.result.handler.config;
+package com.feiniaojin.grh.config;
 
 
 import lombok.Data;
@@ -7,7 +7,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 /**
  * 核心配置类.
  *
- * @author qinyujie
+ * @author feiniaojin
  * @version 0.1
  * @since 0.1
  */
@@ -15,9 +15,5 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "global.result.handler")
 public class GlobalResultHandlerConfigProperties {
 
-    /**
-     * 是否在异常处理器中打印日志，默认为false,不打印.
-     */
-    private boolean printLog = true;
-    private boolean enableSwagger = true;
+  private boolean enableSwagger = true;
 }

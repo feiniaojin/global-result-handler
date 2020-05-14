@@ -1,6 +1,6 @@
-package cn.gingo.global.result.handler;
+package com.feiniaojin.grh;
 
-import cn.gingo.global.result.handler.config.GlobalResultHandlerAutoConfig;
+import com.feiniaojin.grh.config.GlobalResultHandlerAutoConfig;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Inherited;
@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Import;
 /**
  * 注解启动全局结果处理的入口.
  *
- * @author qinyujie
+ * @author feiniaojin
  * @version 0.1
  * @since 0.1
  */

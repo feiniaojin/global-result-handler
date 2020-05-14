@@ -1,15 +1,14 @@
-package cn.gingo.global.result.handler.advice;
+package com.feiniaojin.grh.advice;
 
-import cn.gingo.global.result.handler.annotation.ExceptionMapper;
-import cn.gingo.global.result.handler.bean.ResponseBean;
-import cn.gingo.global.result.handler.config.GlobalResultHandlerConfigProperties;
+import com.feiniaojin.grh.annotation.ExceptionMapper;
+import com.feiniaojin.grh.bean.ResponseBean;
+import com.feiniaojin.grh.config.GlobalResultHandlerConfigProperties;
+import com.feiniaojin.grh.enums.DefaultResponseCode;
 import java.util.List;
 import java.util.Set;
 import javax.annotation.Resource;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
-
-import cn.gingo.global.result.handler.enums.DefaultResponseCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
 import org.springframework.validation.BindException;
@@ -22,7 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 /**
  * 全局异常处理.
  *
- * @author qinyujie
+ * @author feiniaojin
  * @version 0.1
  * @since 0.1
  */
@@ -44,31 +43,21 @@ public class GlobalExceptionAdvice {
   @ResponseBody
   public ResponseBean exceptionHandler(Exception exception) {
 
+    if (log.isDebugEnabled()) {
+      log.debug(exception.getMessage(), exception);
+    }
+
     ResponseBean bean = new ResponseBean();
 
     //根据异常匹配注解获取异常码和消息
     ExceptionMapper exceptionMapper = exception.getClass().getAnnotation(ExceptionMapper.class);
-
     if (exceptionMapper != null) {
       bean.setCode(exceptionMapper.code());
       bean.setMsg(exceptionMapper.msg());
-      if (config.isPrintLog() && log.isDebugEnabled()) {
-        log.debug(exceptionMapper.msg(), exception);
-      }
       return bean;
     }
 
-    if (config.isPrintLog() && log.isDebugEnabled()) {
-      log.debug(exception.getMessage(), exception);
-    }
-
-    if (config.isPrintLog() && log.isInfoEnabled()) {
-      log.info(exception.getMessage(),exception);
-    }
-
-    //没有定义异常码，则用默认的
-    bean.setCode(DefaultResponseCode.DEFAULT_FAIL.getCode());
-
+    //参数校验时的异常
     if (exception instanceof BindException) {
       BindException exs = (BindException) exception;
       List<ObjectError> errors = exs.getAllErrors();
@@ -79,6 +68,7 @@ public class GlobalExceptionAdvice {
       }
       sb.deleteCharAt(sb.lastIndexOf("|"));
       bean.setMsg(sb.toString());
+      bean.setCode(DefaultResponseCode.DEFAULT_FAIL.getCode());
       return bean;
     }
 
@@ -92,6 +82,7 @@ public class GlobalExceptionAdvice {
       }
       sb.deleteCharAt(sb.lastIndexOf("|"));
       bean.setMsg(sb.toString());
+      bean.setCode(DefaultResponseCode.DEFAULT_FAIL.getCode());
       return bean;
     }
 
@@ -105,14 +96,13 @@ public class GlobalExceptionAdvice {
       }
       sb.deleteCharAt(sb.lastIndexOf("|"));
       bean.setMsg(sb.toString());
+      bean.setCode(DefaultResponseCode.DEFAULT_FAIL.getCode());
       return bean;
     }
 
     //给不按套路写代码的同事准备的
-    if (exception instanceof Throwable) {
-      bean.setMsg(DefaultResponseCode.DEFAULT_FAIL.getMsg());
-      return bean;
-    }
+    bean.setCode(DefaultResponseCode.DEFAULT_FAIL.getCode());
+    bean.setMsg(DefaultResponseCode.DEFAULT_FAIL.getMsg());
     return bean;
   }
 }

@@ -1,4 +1,4 @@
-package cn.gingo.global.result.handler.enums;
+package com.feiniaojin.grh.enums;
 
 /**
  * <p>
@@ -11,7 +11,7 @@ package cn.gingo.global.result.handler.enums;
  * 失败：{@code DEFAULT_FAIL}.
  * </p>
  *
- * @author qinyujie
+ * @author feiniaojin
  * @version 0.1
  * @since 0.1
  */
@@ -25,7 +25,7 @@ public enum DefaultResponseCode {
   /**
    * {@code DEFAULT_FAIL} 请求处理失败.
    */
-  DEFAULT_FAIL(1, "Poor network quality！");
+  DEFAULT_FAIL(1, "Poor network quality");
 
   /**
    * 响应码.
@@ -52,15 +52,7 @@ public enum DefaultResponseCode {
     return code;
   }
 
-  public void setCode(int code) {
-    this.code = code;
-  }
-
   public String getMsg() {
     return msg;
-  }
-
-  public void setMsg(String msg) {
-    this.msg = msg;
   }
 }

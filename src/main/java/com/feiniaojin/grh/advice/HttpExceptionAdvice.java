@@ -1,8 +1,8 @@
-package cn.gingo.global.result.handler.advice;
+package com.feiniaojin.grh.advice;
 
-import cn.gingo.global.result.handler.ResponseBeans;
-import cn.gingo.global.result.handler.bean.ResponseBean;
-import cn.gingo.global.result.handler.exception.DefaultHttpExceptions;
+import com.feiniaojin.grh.ResponseBeans;
+import com.feiniaojin.grh.bean.ResponseBean;
+import com.feiniaojin.grh.exception.DefaultHttpExceptions;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
@@ -15,7 +15,7 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 /**
  * Http异常的处理.
  *
- * @author qinyujie
+ * @author feiniaojin
  * @version 0.1
  * @since 0.1
  */
@@ -32,7 +32,7 @@ public class HttpExceptionAdvice {
    */
   @ExceptionHandler(value = NoHandlerFoundException.class)
   @ResponseBody
-  public ResponseBean handlerNoHandlerFoundException(NoHandlerFoundException exception) {
+  public ResponseBean handleNoHandlerFoundException(NoHandlerFoundException exception) {
     return ResponseBeans.fromException(DefaultHttpExceptions.NotFoundException.class);
   }
 
@@ -44,7 +44,7 @@ public class HttpExceptionAdvice {
    */
   @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
   @ResponseBody
-  public ResponseBean handlerHttpRequestMethodNotSupportedException(
+  public ResponseBean handleHttpRequestMethodNotSupportedException(
       HttpRequestMethodNotSupportedException exception) {
     return ResponseBeans.fromException(DefaultHttpExceptions.MethodNotSupportedException.class);
   }
@@ -57,7 +57,7 @@ public class HttpExceptionAdvice {
    */
   @ExceptionHandler(HttpMediaTypeNotSupportedException.class)
   @ResponseBody
-  public ResponseBean handlerHttpMediaTypeNotSupportedException(
+  public ResponseBean handleHttpMediaTypeNotSupportedException(
       HttpMediaTypeNotSupportedException exception) {
     return ResponseBeans.fromException(DefaultHttpExceptions.MediaTypeNotSupportedException.class);
   }

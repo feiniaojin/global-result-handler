@@ -1,11 +1,11 @@
-package cn.gingo.global.result.handler.exception;
+package com.feiniaojin.grh.exception;
 
-import cn.gingo.global.result.handler.annotation.ExceptionMapper;
+import com.feiniaojin.grh.annotation.ExceptionMapper;
 
 /**
  * 默认处理后包装的http协议异常.
  *
- * @author qinyujie
+ * @author feiniaojin
  * @version 0.1
  * @since 0.1
  */
