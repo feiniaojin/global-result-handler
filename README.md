@@ -22,7 +22,7 @@ public Result GeneralPageQuery(Parameter params) {
         //2. 调用Service的一系列操作
     }cach(Exception e){
         
-        //3. 异常处理：一堆丑陋的try...cach，如果由错误码的，还需要手工填充错误码
+        //3. 异常处理：一堆丑陋的try...catch，如果有错误码的，还需要手工填充错误码
     }
     
     return result;
