@@ -184,7 +184,7 @@ public class ExampleApplication {
 }
 ```
 
-## 6.3 在DTO中设置校验
+## 2.3 在DTO中设置校验
 
 ```java
 @Data
@@ -203,7 +203,7 @@ public class RequestDTO {
 }
 ```
 
-## 6.4 创建异常时加上@ExceptionMapper注解
+## 2.4 创建异常时加上@ExceptionMapper注解
 
 ```java
 public class ExampleExceptions {
@@ -220,7 +220,7 @@ public class ExampleExceptions {
 }
 ```
 
-## 6.5 关闭spring mvc的自动匹配
+## 2.5 关闭spring mvc的自动匹配
 
 ```yaml
 spring:
@@ -230,7 +230,7 @@ spring:
     add-mappings: false
 ```
 
-## 6.6 实现具体业务逻辑
+## 2.6 实现具体业务逻辑
 
 ```java
 /**
@@ -338,11 +338,11 @@ public class ExampleController {
 }
 ```
 
-## 6.7 demo工程的结构
+## 2.7 demo工程的结构
 
 ![](https://mmbiz.qpic.cn/sz_mmbiz_png/sNtDzfAUItIwFAicRorpaF8LjHPOVnqic4b0AzBbRxV8V7Y8wfvjIVoHOkiaxwLLletcgV2sgXKFlTF0gg5KxgkZw/0?wx_fmt=png)
 
-## 6.8 Swagger2支持
+## 2.8 Swagger2支持
 
 从0.2版本开始，添加对Swagger2的支持。
 
@@ -373,7 +373,7 @@ public class ExampleController {
 
   如果不添加，grh将会拦截html
 
-# 7. 源码地址
+# 3. 源码地址
 
 以上的所有实现，是基于笔者在实际开发中的需求进行抽象设计的，未必适合所有的情形，欢迎提交PR。
 
