@@ -15,7 +15,7 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 /**
  * Http异常的处理.
  *
- * @author feiniaojin
+ * @author <a href="mailto:943868899@qq.com">feiniaojin</a>
  * @version 0.1
  * @since 0.1
  */

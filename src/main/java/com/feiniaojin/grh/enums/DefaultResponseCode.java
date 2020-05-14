@@ -11,7 +11,7 @@ package com.feiniaojin.grh.enums;
  * 失败：{@code DEFAULT_FAIL}.
  * </p>
  *
- * @author feiniaojin
+ * @author <a href="mailto:943868899@qq.com">feiniaojin</a>
  * @version 0.1
  * @since 0.1
  */

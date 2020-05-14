@@ -5,7 +5,7 @@ import com.feiniaojin.grh.annotation.ExceptionMapper;
 /**
  * 默认处理后包装的http协议异常.
  *
- * @author feiniaojin
+ * @author <a href="mailto:943868899@qq.com">feiniaojin</a>
  * @version 0.1
  * @since 0.1
  */

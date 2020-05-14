@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
 /**
  * 异常映射注解.
  *
- * @author feiniaojin
+ * @author <a href="mailto:943868899@qq.com">feiniaojin</a>
  * @version 0.1
  * @since 0.1
  */

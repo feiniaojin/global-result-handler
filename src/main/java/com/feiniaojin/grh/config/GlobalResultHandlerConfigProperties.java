@@ -7,7 +7,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 /**
  * 核心配置类.
  *
- * @author feiniaojin
+ * @author <a href="mailto:943868899@qq.com">feiniaojin</a>
  * @version 0.1
  * @since 0.1
  */

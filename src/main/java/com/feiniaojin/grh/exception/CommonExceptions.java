@@ -5,7 +5,7 @@ import com.feiniaojin.grh.annotation.ExceptionMapper;
 /**
  * 公共的异常类.
  *
- * @author feiniaojin
+ * @author <a href="mailto:943868899@qq.com">feiniaojin</a>
  */
 public class CommonExceptions {
 

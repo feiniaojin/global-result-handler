@@ -6,7 +6,7 @@ import com.feiniaojin.grh.bean.ResponseBean;
 /**
  * 通过异常生成统一响应的工具类.
  *
- * @author feiniaojin
+ * @author <a href="mailto:943868899@qq.com">feiniaojin</a>
  * @version 0.1
  * @since 0.1
  */

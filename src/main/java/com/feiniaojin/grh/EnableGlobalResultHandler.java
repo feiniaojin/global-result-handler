@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Import;
 /**
  * 注解启动全局结果处理的入口.
  *
- * @author feiniaojin
+ * @author <a href="mailto:943868899@qq.com">feiniaojin</a>
  * @version 0.1
  * @since 0.1
  */

@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 /**
  * 全局异常处理.
  *
- * @author feiniaojin
+ * @author <a href="mailto:943868899@qq.com">feiniaojin</a>
  * @version 0.1
  * @since 0.1
  */
