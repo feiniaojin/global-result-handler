@@ -2,6 +2,8 @@
 
 [toc]
 
+![](https://mmbiz.qpic.cn/sz_mmbiz_png/sNtDzfAUItJUtFej5EiconpnJGLIhkAAzEhNZcuupaWFuv53GabTRPsicMgj7tsVtQ6un0dEe5PFRgKF3XQEibOsg/0?wx_fmt=png)
+
 # 1. 需求背景
 
 ## 1.1 现有问题
@@ -161,6 +163,8 @@ public void delete(@PathVariable Long id) {
 # 2. 使用global-result-handler-starter
 
 ## 2.1 引入starter
+
+**global-result-handler-starter**目前已发布到Maven中央仓库，可以直接在项目的pom文件中引入。
 
 ```xml
 <dependency>
