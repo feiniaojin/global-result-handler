@@ -9,7 +9,6 @@ import org.springframework.http.server.ServerHttpRequest;
  * swagger相关类校验器
  *
  * @author <a href="mailto:943868899@qq.com">feiniaojin</a>
- * @date 2020/05/14
  */
 @Slf4j
 public class SwaggerChecker {

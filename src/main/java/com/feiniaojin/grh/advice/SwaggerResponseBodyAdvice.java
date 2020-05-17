@@ -19,7 +19,6 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
  * 用于支持Swagger2.
  *
  * @author <a href="mailto:943868899@qq.com">feiniaojin</a>
- * @date 2020/05/14
  */
 @ControllerAdvice
 @Slf4j
