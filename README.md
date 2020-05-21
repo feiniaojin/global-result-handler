@@ -2,7 +2,7 @@
 
 [toc]
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_png/sNtDzfAUItJUtFej5EiconpnJGLIhkAAzEhNZcuupaWFuv53GabTRPsicMgj7tsVtQ6un0dEe5PFRgKF3XQEibOsg/0?wx_fmt=png)
+![grh.png](http://yanxuan.nosdn.127.net/5ff056aefe19392ca59ec542d73f5f88.png)
 
 # 1. 需求背景
 
@@ -344,7 +344,7 @@ public class ExampleController {
 
 ## 2.7 demo工程的结构
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_png/sNtDzfAUItIwFAicRorpaF8LjHPOVnqic4b0AzBbRxV8V7Y8wfvjIVoHOkiaxwLLletcgV2sgXKFlTF0gg5KxgkZw/0?wx_fmt=png)
+![a.png](http://yanxuan.nosdn.127.net/086b6d558abadbd1bb4049affcf75abc.png)
 
 ## 2.8 Swagger2支持
 
