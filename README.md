@@ -2,7 +2,7 @@
 
 [toc]
 
-![grh.png](http://yanxuan.nosdn.127.net/5ff056aefe19392ca59ec542d73f5f88.png)
+![grh.png](https://gingoimg.oss-cn-beijing.aliyuncs.com/grh.png)
 
 # 1. 需求背景
 
@@ -344,7 +344,7 @@ public class ExampleController {
 
 ## 2.7 demo工程的结构
 
-![a.png](http://yanxuan.nosdn.127.net/086b6d558abadbd1bb4049affcf75abc.png)
+![a.png](https://gingoimg.oss-cn-beijing.aliyuncs.com/a.png)
 
 ## 2.8 Swagger2支持
 
