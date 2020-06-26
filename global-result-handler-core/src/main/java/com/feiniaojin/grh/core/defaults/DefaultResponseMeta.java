@@ -1,6 +1,6 @@
 package com.feiniaojin.grh.core.defaults;
 
-import com.feiniaojin.grh.def.ResponseCode;
+import com.feiniaojin.grh.def.ResponseMeta;
 
 /**
  * <p>
@@ -17,7 +17,7 @@ import com.feiniaojin.grh.def.ResponseCode;
  * @version 0.1
  * @since 0.1
  */
-public enum DefaultResponseCode implements ResponseCode {
+public enum DefaultResponseMeta implements ResponseMeta {
 
   /**
    * {@code DEFAULT_SUCCESS} 请求处理成功.
@@ -45,7 +45,7 @@ public enum DefaultResponseCode implements ResponseCode {
    * @param code 响应码
    * @param msg  响应信息
    */
-  DefaultResponseCode(int code, String msg) {
+  DefaultResponseMeta(int code, String msg) {
     this.code = code;
     this.msg = msg;
   }

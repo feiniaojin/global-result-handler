@@ -17,6 +17,14 @@ public interface ResponseBeanFactory<T> {
   ResponseBean newInstance();
 
   /**
+   * 创建新的空响应.
+   *
+   * @param responseMeta 响应元信息.
+   * @return
+   */
+  ResponseBean newInstance(ResponseMeta responseMeta);
+
+  /**
    * 创建新的响应.
    *
    * @return

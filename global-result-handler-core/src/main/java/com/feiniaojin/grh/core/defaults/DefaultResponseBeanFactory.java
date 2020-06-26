@@ -3,6 +3,9 @@ package com.feiniaojin.grh.core.defaults;
 import com.feiniaojin.grh.def.ExceptionMapper;
 import com.feiniaojin.grh.def.ResponseBean;
 import com.feiniaojin.grh.def.ResponseBeanFactory;
+import com.feiniaojin.grh.def.ResponseMeta;
+import com.feiniaojin.grh.def.ResponseMetaFactory;
+import javax.annotation.Resource;
 
 /**
  * @author <a href="mailto:qinyujie@gingo.cn">Yujie</a>
@@ -10,16 +13,28 @@ import com.feiniaojin.grh.def.ResponseBeanFactory;
  */
 public class DefaultResponseBeanFactory implements ResponseBeanFactory {
 
+  @Resource
+  private ResponseMetaFactory responseMetaFactory;
+
   @Override
   public ResponseBean newInstance() {
     return new DefaultResponseBean();
   }
 
   @Override
+  public ResponseBean newInstance(ResponseMeta responseMeta) {
+
+    ResponseBean bean = this.newInstance();
+    bean.setCode(responseMeta.getCode());
+    bean.setMsg(responseMeta.getMsg());
+    return bean;
+  }
+
+  @Override
   public ResponseBean newSuccessInstance() {
     DefaultResponseBean responseBean = new DefaultResponseBean();
-    responseBean.setCode(DefaultResponseCode.DEFAULT_SUCCESS.getCode());
-    responseBean.setMsg(DefaultResponseCode.DEFAULT_SUCCESS.getMsg());
+    responseBean.setCode(responseMetaFactory.success().getCode());
+    responseBean.setMsg(responseMetaFactory.success().getMsg());
     return responseBean;
   }
 
@@ -33,13 +48,18 @@ public class DefaultResponseBeanFactory implements ResponseBeanFactory {
   @Override
   public ResponseBean newFailInstance() {
     ResponseBean bean = this.newInstance();
-    bean.setCode(DefaultResponseCode.DEFAULT_SUCCESS.getCode());
-    bean.setMsg(DefaultResponseCode.DEFAULT_SUCCESS.getMsg());
+    bean.setCode(responseMetaFactory.fail().getCode());
+    bean.setMsg(responseMetaFactory.fail().getMsg());
     return bean;
   }
 
   @Override
   public ResponseBean newFailInstance(Class clazz) {
+
+    //必须是Exception类的子类,才继续往下执行
+    if (clazz.isAssignableFrom(Exception.class)) {
+      throw new UnsupportedOperationException();
+    }
 
     ExceptionMapper exceptionMapper = (ExceptionMapper) clazz.getAnnotation(ExceptionMapper.class);
 

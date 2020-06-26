@@ -17,8 +17,8 @@ public class DefaultResponseBean implements ResponseBean {
 
   private static final Map<Object, Object> DEFAULT_NULL = Collections.emptyMap();
 
-  private int code = DefaultResponseCode.DEFAULT_SUCCESS.getCode();
-  private String msg = DefaultResponseCode.DEFAULT_SUCCESS.getMsg();
+  private int code = DefaultResponseMeta.DEFAULT_SUCCESS.getCode();
+  private String msg = DefaultResponseMeta.DEFAULT_SUCCESS.getMsg();
   private Object data = DEFAULT_NULL;
 
   public DefaultResponseBean() {
@@ -41,5 +41,20 @@ public class DefaultResponseBean implements ResponseBean {
   @Override
   public void setData(Object obj) {
     this.data = obj;
+  }
+
+  @Override
+  public int getCode() {
+    return code;
+  }
+
+  @Override
+  public String getMsg() {
+    return msg;
+  }
+
+  @Override
+  public Object getData() {
+    return data;
   }
 }

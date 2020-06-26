@@ -1,9 +1,12 @@
 package com.feiniaojin.grh.core.advice;
 
-import com.feiniaojin.grh.core.defaults.DefaultResponseCode;
+import com.feiniaojin.grh.core.config.GlobalResultHandlerConfigProperties;
+import com.feiniaojin.grh.core.defaults.DefaultResponseMeta;
 import com.feiniaojin.grh.def.ExceptionMapper;
 import com.feiniaojin.grh.def.ResponseBean;
 import com.feiniaojin.grh.def.ResponseBeanFactory;
+import com.feiniaojin.grh.def.ResponseMetaFactory;
+import com.feiniaojin.grh.def.ValidationExceptionConverter;
 import java.util.List;
 import java.util.Set;
 import javax.annotation.Resource;
@@ -33,7 +36,16 @@ public class GlobalExceptionAdvice {
   private static final Logger LOGGER = LoggerFactory.getLogger(GlobalExceptionAdvice.class);
 
   @Resource
+  private ValidationExceptionConverter validationExceptionConverter;
+
+  @Resource
+  private ResponseMetaFactory responseMetaFactory;
+
+  @Resource
   private ResponseBeanFactory responseBeanFactory;
+
+  @Resource
+  private GlobalResultHandlerConfigProperties properties;
 
   /**
    * 异常处理逻辑.
@@ -41,7 +53,7 @@ public class GlobalExceptionAdvice {
    * @param exception 业务逻辑抛出的异常
    * @return 统一返回包装后的结果
    */
-  @ExceptionHandler({Throwable.class})
+  @ExceptionHandler({Exception.class})
   @ResponseBody
   public ResponseBean exceptionHandler(Exception exception) {
 
@@ -49,12 +61,33 @@ public class GlobalExceptionAdvice {
       LOGGER.debug(exception.getMessage(), exception);
     }
 
+    //校验异常转自定义异常
+    Class<? extends Exception> customExceptionClass = validationExceptionConverter.convert(exception.getClass());
+
+    if (customExceptionClass != null) {
+      return generateValidationResponse(exception, customExceptionClass);
+    } else {
+      customExceptionClass = exception.getClass();
+    }
+
+    return responseBeanFactory.newFailInstance(customExceptionClass);
+  }
+
+  private ResponseBean generateValidationResponse(Exception exception, Class<? extends Exception> customExceptionClass) {
+
     ResponseBean response = responseBeanFactory.newInstance();
 
     //根据异常匹配注解获取异常码和消息
-    ExceptionMapper exceptionMapper = exception.getClass().getAnnotation(ExceptionMapper.class);
+    ExceptionMapper exceptionMapper = customExceptionClass.getAnnotation(ExceptionMapper.class);
+
+    //填充错误码
     if (exceptionMapper != null) {
       response.setCode(exceptionMapper.code());
+    } else {
+      response.setMsg(responseMetaFactory.fail().getMsg());
+    }
+    //填充错误信息
+    if (!properties.isUseValidationMsg()) {
       response.setMsg(exceptionMapper.msg());
       return response;
     }
@@ -70,7 +103,6 @@ public class GlobalExceptionAdvice {
       }
       sb.deleteCharAt(sb.lastIndexOf("|"));
       response.setMsg(sb.toString());
-      response.setCode(DefaultResponseCode.DEFAULT_FAIL.getCode());
       return response;
     }
 
@@ -84,7 +116,6 @@ public class GlobalExceptionAdvice {
       }
       sb.deleteCharAt(sb.lastIndexOf("|"));
       response.setMsg(sb.toString());
-      response.setCode(DefaultResponseCode.DEFAULT_FAIL.getCode());
       return response;
     }
 
@@ -98,13 +129,10 @@ public class GlobalExceptionAdvice {
       }
       sb.deleteCharAt(sb.lastIndexOf("|"));
       response.setMsg(sb.toString());
-      response.setCode(DefaultResponseCode.DEFAULT_FAIL.getCode());
       return response;
     }
 
-    //给不按套路写代码的同事准备的
-    response.setCode(DefaultResponseCode.DEFAULT_FAIL.getCode());
-    response.setMsg(DefaultResponseCode.DEFAULT_FAIL.getMsg());
+    response.setMsg(responseMetaFactory.fail().getMsg());
     return response;
   }
 }

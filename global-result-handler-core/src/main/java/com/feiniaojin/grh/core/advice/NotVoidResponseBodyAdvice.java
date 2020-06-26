@@ -58,7 +58,7 @@ public class NotVoidResponseBodyAdvice implements ResponseBodyAdvice<Object> {
                                 ServerHttpRequest serverHttpRequest,
                                 ServerHttpResponse serverHttpResponse) {
     if (body == null) {
-      return responseBeanFactory.newInstance();
+      return responseBeanFactory.newSuccessInstance();
     } else if (body instanceof ResponseBean
         || swaggerChecker.isSwaggerClass(body)
         || swaggerChecker.isSwaggerUrl(serverHttpRequest)) {

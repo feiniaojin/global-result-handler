@@ -15,6 +15,12 @@ public interface ResponseBean {
   void setCode(int code);
 
   /**
+   * 获得响应码.
+   * @return
+   */
+  int getCode();
+
+  /**
    * 设置响应提示信息.
    *
    * @param msg 设置响应提示信息.
@@ -22,10 +28,20 @@ public interface ResponseBean {
   void setMsg(String msg);
 
   /**
+   * 获得响应信息.
+   * @return
+   */
+  String getMsg();
+  /**
    * 设置响应数据.
    *
    * @param obj 设置的响应数据.
    */
   void setData(Object obj);
 
+  /**
+   * 获得响应数据.
+   * @return
+   */
+  Object getData();
 }

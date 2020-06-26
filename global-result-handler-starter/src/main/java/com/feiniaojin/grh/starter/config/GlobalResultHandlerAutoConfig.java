@@ -1,10 +1,15 @@
 package com.feiniaojin.grh.starter.config;
 
 import com.feiniaojin.grh.core.check.SwaggerChecker;
+import com.feiniaojin.grh.core.config.GlobalResultHandlerConfigProperties;
 import com.feiniaojin.grh.core.defaults.DefaultHttpExceptionConverter;
 import com.feiniaojin.grh.core.defaults.DefaultResponseBeanFactory;
+import com.feiniaojin.grh.core.defaults.DefaultResponseMetaFactory;
+import com.feiniaojin.grh.core.defaults.DefaultValidationExceptionConverter;
 import com.feiniaojin.grh.def.HttpExceptionConverter;
 import com.feiniaojin.grh.def.ResponseBeanFactory;
+import com.feiniaojin.grh.def.ResponseMetaFactory;
+import com.feiniaojin.grh.def.ValidationExceptionConverter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -40,7 +45,19 @@ public class GlobalResultHandlerAutoConfig {
 
   @Bean
   @ConditionalOnMissingBean(value = {HttpExceptionConverter.class})
-  public HttpExceptionConverter exceptionConverter() {
+  public HttpExceptionConverter httpExceptionConverter() {
     return new DefaultHttpExceptionConverter();
+  }
+
+  @Bean
+  @ConditionalOnMissingBean(value = {ValidationExceptionConverter.class})
+  public ValidationExceptionConverter validationExceptionConverter() {
+    return new DefaultValidationExceptionConverter();
+  }
+
+  @Bean
+  @ConditionalOnMissingBean(value = {ResponseMetaFactory.class})
+  public DefaultResponseMetaFactory responseMetaFactory() {
+    return new DefaultResponseMetaFactory();
   }
 }
