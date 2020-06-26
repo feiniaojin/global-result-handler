@@ -2,6 +2,7 @@ package com.feiniaojin.grh.def;
 
 /**
  * ResponseBean的工厂类，用于生成ResponseBean.
+ *
  * @author <a href="mailto:qinyujie@gingo.cn">Yujie</a>
  * @version 0.1
  */
@@ -29,4 +30,19 @@ public interface ResponseBeanFactory<T> {
    * @return
    */
   ResponseBean newSuccessInstance(T t);
+
+  /**
+   * 创建新的失败响应.
+   *
+   * @return
+   */
+  ResponseBean newFailInstance();
+
+  /**
+   * 根据异常类，创建新的失败响应
+   *
+   * @param clazz
+   * @return
+   */
+  ResponseBean newFailInstance(Class<? extends Exception> clazz);
 }

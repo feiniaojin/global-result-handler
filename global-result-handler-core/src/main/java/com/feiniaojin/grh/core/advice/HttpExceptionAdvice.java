@@ -3,6 +3,7 @@ package com.feiniaojin.grh.core.advice;
 import com.feiniaojin.grh.core.ResponseBeans;
 import com.feiniaojin.grh.def.ExceptionConverter;
 import com.feiniaojin.grh.def.ResponseBean;
+import com.feiniaojin.grh.def.ResponseBeanFactory;
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import org.slf4j.Logger;
@@ -28,8 +29,11 @@ public class HttpExceptionAdvice {
   @Resource
   private ExceptionConverter exceptionConverter;
 
+  @Resource
+  private ResponseBeanFactory responseBeanFactory;
+
   /**
-   * Http异常转换成系统自定义异常
+   * Http异常转换成系统自定义异常.
    *
    * @param exception Http异常.
    * @return ResponseBean
@@ -37,7 +41,7 @@ public class HttpExceptionAdvice {
   @ExceptionHandler(value = ServletException.class)
   @ResponseBody
   public ResponseBean handleServletException(ServletException exception) {
-    Class<? extends Exception> aClass = exceptionConverter.convert(exception.getClass());
-    return ResponseBeans.fromException(aClass);
+    Class<? extends Exception> clazz = exceptionConverter.convert(exception.getClass());
+    return responseBeanFactory.newFailInstance(clazz);
   }
 }
