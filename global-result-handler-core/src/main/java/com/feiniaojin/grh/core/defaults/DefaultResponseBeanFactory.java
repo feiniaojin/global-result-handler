@@ -56,11 +56,6 @@ public class DefaultResponseBeanFactory implements ResponseBeanFactory {
   @Override
   public ResponseBean newFailInstance(Class clazz) {
 
-    //必须是Exception类的子类,才继续往下执行
-    if (clazz.isAssignableFrom(Exception.class)) {
-      throw new UnsupportedOperationException();
-    }
-
     ExceptionMapper exceptionMapper = (ExceptionMapper) clazz.getAnnotation(ExceptionMapper.class);
 
     if (exceptionMapper != null) {

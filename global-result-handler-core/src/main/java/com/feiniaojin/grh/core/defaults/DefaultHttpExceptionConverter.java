@@ -3,6 +3,8 @@ package com.feiniaojin.grh.core.defaults;
 import com.feiniaojin.grh.def.HttpExceptionConverter;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import org.springframework.web.HttpMediaTypeNotSupportedException;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 /**
@@ -18,6 +20,8 @@ public class DefaultHttpExceptionConverter implements HttpExceptionConverter {
 
   {
     mapping.put(NoHandlerFoundException.class, DefaultHttpExceptions.NotFoundException.class);
+    mapping.put(HttpRequestMethodNotSupportedException.class, DefaultHttpExceptions.MethodNotSupportedException.class);
+    mapping.put(HttpMediaTypeNotSupportedException.class, DefaultHttpExceptions.MediaTypeNotSupportedException.class);
   }
 
   @Override

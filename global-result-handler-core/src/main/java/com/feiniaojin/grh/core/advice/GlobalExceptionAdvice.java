@@ -1,7 +1,6 @@
 package com.feiniaojin.grh.core.advice;
 
 import com.feiniaojin.grh.core.config.GlobalResultHandlerConfigProperties;
-import com.feiniaojin.grh.core.defaults.DefaultResponseMeta;
 import com.feiniaojin.grh.def.ExceptionMapper;
 import com.feiniaojin.grh.def.ResponseBean;
 import com.feiniaojin.grh.def.ResponseBeanFactory;
@@ -53,7 +52,7 @@ public class GlobalExceptionAdvice {
    * @param exception 业务逻辑抛出的异常
    * @return 统一返回包装后的结果
    */
-  @ExceptionHandler({Exception.class})
+  @ExceptionHandler({Throwable.class})
   @ResponseBody
   public ResponseBean exceptionHandler(Exception exception) {
 
@@ -84,9 +83,10 @@ public class GlobalExceptionAdvice {
     if (exceptionMapper != null) {
       response.setCode(exceptionMapper.code());
     } else {
-      response.setMsg(responseMetaFactory.fail().getMsg());
+      response.setCode(responseMetaFactory.fail().getCode());
     }
-    //填充错误信息
+
+    //是否返回校验结果信息，如果配置了false，则使用自定义异常的信息进行返回
     if (!properties.isUseValidationMsg()) {
       response.setMsg(exceptionMapper.msg());
       return response;

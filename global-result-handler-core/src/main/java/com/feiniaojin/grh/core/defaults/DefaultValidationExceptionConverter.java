@@ -3,7 +3,9 @@ package com.feiniaojin.grh.core.defaults;
 import com.feiniaojin.grh.def.ValidationExceptionConverter;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import org.springframework.web.servlet.NoHandlerFoundException;
+import javax.validation.ConstraintViolationException;
+import org.springframework.validation.BindException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 
 /**
  * 默认的校验异常转换器.
@@ -16,7 +18,9 @@ public class DefaultValidationExceptionConverter implements ValidationExceptionC
       = new ConcurrentHashMap<>();
 
   {
-    mapping.put(NoHandlerFoundException.class, DefaultHttpExceptions.NotFoundException.class);
+    mapping.put(BindException.class, DefaultCustomExceptions.IllegalArgumentException.class);
+    mapping.put(MethodArgumentNotValidException.class, DefaultCustomExceptions.IllegalArgumentException.class);
+    mapping.put(ConstraintViolationException.class, DefaultCustomExceptions.IllegalArgumentException.class);
   }
 
   @Override
