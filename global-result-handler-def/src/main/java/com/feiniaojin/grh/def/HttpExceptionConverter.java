@@ -1,12 +1,12 @@
 package com.feiniaojin.grh.def;
 
 /**
- * 异常转换器，将异常类转换为自定义异常类.
+ * 异常转换器，将Http异常类转换为自定义异常类.
  *
  * @author <a href="mailto:qinyujie@gingo.cn">Yujie</a>
  * @version 0.1
  */
-public interface ExceptionConverter {
+public interface HttpExceptionConverter {
 
   /**
    * 将异常转为另一种异常.

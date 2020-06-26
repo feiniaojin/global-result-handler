@@ -1,6 +1,6 @@
 package com.feiniaojin.grh.core.advice;
 
-import com.feiniaojin.grh.def.ExceptionConverter;
+import com.feiniaojin.grh.def.HttpExceptionConverter;
 import com.feiniaojin.grh.def.ResponseBean;
 import com.feiniaojin.grh.def.ResponseBeanFactory;
 import javax.annotation.Resource;
@@ -26,7 +26,7 @@ public class HttpExceptionAdvice {
   private static final Logger LOGGER = LoggerFactory.getLogger(HttpExceptionAdvice.class);
 
   @Resource
-  private ExceptionConverter exceptionConverter;
+  private HttpExceptionConverter httpExceptionConverter;
 
   @Resource
   private ResponseBeanFactory responseBeanFactory;
@@ -40,7 +40,7 @@ public class HttpExceptionAdvice {
   @ExceptionHandler(value = ServletException.class)
   @ResponseBody
   public ResponseBean handleServletException(ServletException exception) {
-    Class<? extends Exception> clazz = exceptionConverter.convert(exception.getClass());
+    Class<? extends Exception> clazz = httpExceptionConverter.convert(exception.getClass());
     return responseBeanFactory.newFailInstance(clazz);
   }
 }

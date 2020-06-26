@@ -1,6 +1,6 @@
 package com.feiniaojin.grh.core.defaults;
 
-import com.feiniaojin.grh.def.ExceptionConverter;
+import com.feiniaojin.grh.def.HttpExceptionConverter;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import org.springframework.web.servlet.NoHandlerFoundException;
@@ -11,7 +11,7 @@ import org.springframework.web.servlet.NoHandlerFoundException;
  * @author <a href="mailto:qinyujie@gingo.cn">Yujie</a>
  * @version 0.1
  */
-public class DefaultHttpExceptionConverter implements ExceptionConverter {
+public class DefaultHttpExceptionConverter implements HttpExceptionConverter {
 
   public final Map<Class<? extends Exception>, Class<? extends Exception>> mapping
       = new ConcurrentHashMap<>();
