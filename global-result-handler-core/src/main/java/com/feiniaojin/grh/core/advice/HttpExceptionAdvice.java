@@ -1,6 +1,5 @@
 package com.feiniaojin.grh.core.advice;
 
-import com.feiniaojin.grh.core.ResponseBeans;
 import com.feiniaojin.grh.def.ExceptionConverter;
 import com.feiniaojin.grh.def.ResponseBean;
 import com.feiniaojin.grh.def.ResponseBeanFactory;
