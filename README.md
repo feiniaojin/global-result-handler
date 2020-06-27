@@ -4,7 +4,7 @@
 
 
 
-![grh.png](https://mmbiz.qpic.cn/sz_mmbiz_png/sNtDzfAUItLBQVqZRJ0JJqLcricBO6g6GxWG7MyNO6tibRMWUKxpNJUz1QybJsWDeVB6XZibtWtbzqQLxnA7GnyvQ/0?wx_fmt=png)
+![grh.png](https://mmbiz.qpic.cn/sz_mmbiz_png/sNtDzfAUItLBQVqZRJ0JJqLcricBO6g6GbCPqeq1vmqUyw1ZW5jz0P4YTUuXrs28kmMD84NZmRQRLAMXyHBn4vQ/0?wx_fmt=png)
 
 # 1. 需求背景
 
@@ -191,7 +191,7 @@ public void delete(@PathVariable Long id) {
 
 * 目前可用的版本是0.3
 
-## 3.2 通过注解开启统一处理
+## 3.2 在启动类上通过注解开启统一处理
 
 ```java
 @EnableGlobalResultHandler
@@ -282,7 +282,7 @@ public class ExampleController {
    */
   @RequestMapping("/void")
   @ResponseBody
-  @ApiOperation(value = "测试返回空值", notes = "查询数据库中某个的学生信息")
+  @ApiOperation(value = "测试返回空值", notes = "")
   public void testVoidResponse() {
 
   }
@@ -295,9 +295,16 @@ public class ExampleController {
 
   @RequestMapping("/success")
   @ResponseBody
-  public RequestDto testSuccess(RequestDto dto) {
+  public RequestDto testSuccess(@Validated RequestDto dto) {
     log.info(dto.toString());
     return dto;
+  }
+
+  @RequestMapping("/get")
+  @ResponseBody
+  public ResponseDto get(Long id) {
+    log.info("id=" + id);
+    return exampleService.getById(id);
   }
 
   /**
@@ -356,13 +363,35 @@ public class ExampleController {
   }
 
   /**
+   * 不支持的http方法调用.
+   * POST接口，使用GET进行请求
+   *
+   * @param userId
+   */
+  @RequestMapping(value = "/methodPost", method = RequestMethod.POST)
+  @ResponseBody
+  public void testMethodNotSupport(Long userId) {
+    log.info("" + userId);
+
+  }
+
+  /**
+   * 测试Controller中方法对参数进行校验的情形.
+   */
+  @RequestMapping("/jsonStr")
+  @ResponseBody
+  public String jsonStr() {
+    log.info("");
+    return "jsonStr";
+  }
+
+  /**
    * 测试Controller中方法对参数进行校验的情形.
    */
   @RequestMapping("/str")
-  @ResponseBody
-  public String testString() {
+  public String str() {
     log.info("");
-    return "testString";
+    return "view";
   }
 }
 ```
