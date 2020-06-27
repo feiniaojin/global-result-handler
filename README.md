@@ -4,7 +4,7 @@
 
 
 
-![grh.png](https://wx1.sbimg.cn/2020/06/27/2BVNj.png)
+![grh.png](https://mmbiz.qpic.cn/sz_mmbiz_png/sNtDzfAUItLBQVqZRJ0JJqLcricBO6g6GxWG7MyNO6tibRMWUKxpNJUz1QybJsWDeVB6XZibtWtbzqQLxnA7GnyvQ/0?wx_fmt=png)
 
 # 1. 需求背景
 
