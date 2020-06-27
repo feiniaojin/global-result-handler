@@ -1,8 +1,10 @@
 # global-result-handler-starter
 
+[toc]
 
 
-![grh.png](https://s1.ax1x.com/2020/05/21/YbJBtO.png)
+
+![grh.png](https://wx1.sbimg.cn/2020/06/27/2BVNj.png)
 
 # 1. 需求背景
 
@@ -40,7 +42,7 @@ public CommonResult<HomeContentResult> content() {
 }
 ```
 
-以上代码均来自github流行的项目，通常存在以下几种问题：
+以上代码均来自github高星流行的项目，通常存在以下几种问题：
 
 * 手工进行封装统一响应格式
 
@@ -85,11 +87,9 @@ public CommonResult<HomeContentResult> content() {
 
   在进行REST微服务开发时，Http协议本身会返回各种状态码，我们希望统一转成200，并返回自定义的异常码。
 
-以上所有问题，**`global-result-handler-starter`**一次性解决。
+以上所有问题，`global-result-handler-starter`一次性解决。
 
----
-
-## 1.2 global-result-handler-starter解决方案
+# 2. global-result-handler-starter案例代码
 
 以下是使用`global-result-handler-starter`进行开发的代码：
 
@@ -175,23 +175,23 @@ public void delete(@PathVariable Long id) {
   }
   ```
 
-# 2. 使用global-result-handler-starter
+# 3. global-result-handler-starter使用教程
 
-## 2.1 引入starter
+## 3.1 引入starter
 
 **global-result-handler-starter**目前已发布到Maven中央仓库，可以直接在项目的pom文件中引入。
 
 ```xml
 <dependency>
-  <groupId>com.feiniaojin</groupId>
+  <groupId>com.feiniaojin.grh</groupId>
   <artifactId>global-result-handler-starter</artifactId>
-  <version>0.2</version>
+  <version>0.3</version>
 </dependency>
 ```
 
 * 目前可用的版本是0.3
 
-## 2.2 通过注解开启统一处理
+## 3.2 通过注解开启统一处理
 
 ```java
 @EnableGlobalResultHandler
@@ -203,7 +203,11 @@ public class ExampleApplication {
 }
 ```
 
-## 2.3 在DTO中设置校验
+## 3.3 在DTO中设置校验
+
+grh的接口参数校验，采用的是Hibernate Validator原生的方法，并未提供任何新增的校验方法，保证了代码的可移植性，只要是Hibernate Validator支持的校验方式，grh即兼容。
+
+如果要扩展Hibernate Validator的校验功能，只要Hibernate Validator支持，则grh也会支持。
 
 ```java
 @Data
@@ -222,7 +226,11 @@ public class RequestDTO {
 }
 ```
 
-## 2.4 创建异常时加上@ExceptionMapper注解
+## 3.4 创建业务异常时加上@ExceptionMapper注解
+
+在创建业务异常时，使用`@ExceptionMapper`进行注解，并设置异常错误码和提示信息。
+
+> 推荐实践：同一个模块的业务异常，在同一个"XxxxExceptions"类中创建静态内部类，便于分组和维护，同模块的错误码拥有相同的前缀，例如用户中心相关的异常采用10xx～20xx码段。
 
 ```java
 public class ExampleExceptions {
@@ -239,7 +247,7 @@ public class ExampleExceptions {
 }
 ```
 
-## 2.5 关闭spring mvc的自动匹配
+## 3.5 关闭spring mvc的自动匹配
 
 ```yaml
 spring:
@@ -249,7 +257,9 @@ spring:
     add-mappings: false
 ```
 
-## 2.6 实现具体业务逻辑
+## 3.6 实现具体业务逻辑
+
+以下代码来自example工程的`ExampleController`
 
 ```java
 /**
@@ -357,11 +367,11 @@ public class ExampleController {
 }
 ```
 
-## 2.7 demo工程的结构
+## 3.7 demo工程的结构
 
 ![a.png](https://s1.ax1x.com/2020/05/21/YbJd76.png)
 
-## 2.8 Swagger2支持
+## 3.8 Swagger2支持
 
 从0.2版本开始，添加对Swagger2的支持。
 
@@ -392,7 +402,60 @@ public class ExampleController {
 
   如果不添加，grh将会拦截html
 
-# 3. 源码地址
+## 3.9 自定义返回格式和默认异常码
+
+从0.3版本开始，支持自定义默认异常码和统一返回的格式。
+
+要支持自定义默认异常码和统一返回的格式，可以参考`global-result-handler-defaults`，该模块提供了很多默认的实现。
+
+具体步骤如下：
+
+### 3.9.1 增加maven依赖
+
+增加`global-result-handler-def`的依赖
+
+```xml
+<dependency>
+    <groupId>com.feiniaojin.grh</groupId>
+    <artifactId>global-result-handler-def</artifactId>
+    <version>0.3</version>
+</dependency>
+```
+
+`global-result-handler-def`只有一些定义的interface注解，不包含任何实现，也不包含任何第三方库，可以直接在api接口定义中引入。
+
+### 3.9.2 提供自定义实现
+
+参考`global-result-handler-defaults`，对需要自定义的内容进行实现。
+
+### 3.9.3 Spring Boot中配置实例化
+
+将自定义的组件配置到Spring Boot中，即可替换默认的实现。
+
+# 4. 版本历史
+
+## 0.1
+
+基本功能的实现，用于作者个人项目，实现的功能有：
+
+* 统一异常处理
+* 参数校验并返回
+* 统一返回格式
+* 异常与错误码关联
+
+## 0.2
+
+* 增加对swagger的支持
+
+## 0.3
+
+* 支持自定义默认错误码
+* 支持自定义返回格式
+* 支持自定义http状态码与异常关联
+* 支持自定义参数校验异常与异常关联
+* example工程中测试spring boot跳转静态页面
+
+# 5. 源码地址
 
 以上的所有实现，是基于笔者在实际开发中的需求进行抽象设计的，未必适合所有的情形，欢迎提交PR。
 
@@ -400,10 +463,14 @@ public class ExampleController {
 
 github:
 
-> starter: https://github.com/feiniaojin/global-result-handler-starter.git
+> starter: https://github.com/feiniaojin/global-result-handler.git
 >
 > example: https://github.com/feiniaojin/global-result-handler-starter-example.git
 
 global-result-handler-starter-example需要搭配对应版本的global-result-handler-starter，二者的版本号一致。
 
- 
+联系方式：
+
+> 微信：qyj000100
+>
+> 邮箱：943868899@qq.com
