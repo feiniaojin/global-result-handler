@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<checkstyle version="8.32">
-<file name="/Users/qinyujie/xdev/github/global-result-handler/global-result-handler-starter/src/main/java/com/feiniaojin/grh/starter/config/GlobalResultHandlerAutoConfig.java">
-<error line="4" severity="warning" message="导入语句&apos;com.feiniaojin.grh.core.config.GlobalResultHandlerConfigProperties&apos; 字典顺序错误。应在&apos;com.feiniaojin.grh.core.support.SwaggerChecker&apos;之前。" source="com.puppycrawl.tools.checkstyle.checks.imports.CustomImportOrderCheck"/>
-</file>
-</checkstyle>

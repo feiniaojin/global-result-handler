@@ -1,7 +1,0 @@
-/Users/qinyujie/xdev/github/global-result-handler/global-result-handler-core/src/main/java/com/feiniaojin/grh/core/advice/GlobalExceptionAdvice.java
-/Users/qinyujie/xdev/github/global-result-handler/global-result-handler-core/src/main/java/com/feiniaojin/grh/core/advice/VoidResponseBodyAdvice.java
-/Users/qinyujie/xdev/github/global-result-handler/global-result-handler-core/src/main/java/com/feiniaojin/grh/core/advice/HttpExceptionAdvice.java
-/Users/qinyujie/xdev/github/global-result-handler/global-result-handler-core/src/main/java/com/feiniaojin/grh/core/support/SwaggerChecker.java
-/Users/qinyujie/xdev/github/global-result-handler/global-result-handler-core/src/main/java/com/feiniaojin/grh/core/config/GlobalResultHandlerConfigProperties.java
-/Users/qinyujie/xdev/github/global-result-handler/global-result-handler-core/src/main/java/com/feiniaojin/grh/core/advice/NotVoidResponseBodyAdvice.java
-/Users/qinyujie/xdev/github/global-result-handler/global-result-handler-core/src/main/java/com/feiniaojin/grh/core/support/SwaggerResponseBodyAdvice.java

@@ -1,7 +1,0 @@
-com/feiniaojin/grh/core/config/GlobalResultHandlerConfigProperties.class
-com/feiniaojin/grh/core/advice/VoidResponseBodyAdvice.class
-com/feiniaojin/grh/core/advice/HttpExceptionAdvice.class
-com/feiniaojin/grh/core/support/SwaggerResponseBodyAdvice.class
-com/feiniaojin/grh/core/support/SwaggerChecker.class
-com/feiniaojin/grh/core/advice/GlobalExceptionAdvice.class
-com/feiniaojin/grh/core/advice/NotVoidResponseBodyAdvice.class

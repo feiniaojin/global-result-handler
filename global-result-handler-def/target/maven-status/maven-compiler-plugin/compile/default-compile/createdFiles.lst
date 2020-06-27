@@ -1,8 +1,0 @@
-com/feiniaojin/grh/def/ResponseMeta.class
-com/feiniaojin/grh/def/ResponseBean.class
-com/feiniaojin/grh/def/HttpExceptionConverter.class
-com/feiniaojin/grh/def/ExceptionConverter.class
-com/feiniaojin/grh/def/ExceptionMapper.class
-com/feiniaojin/grh/def/ResponseMetaFactory.class
-com/feiniaojin/grh/def/ResponseBeanFactory.class
-com/feiniaojin/grh/def/ValidationExceptionConverter.class
