@@ -1,11 +1,10 @@
-#Sat Jun 27 15:07:20 CST 2020
+#Sat Jun 27 22:19:57 CST 2020
 module-resource*?\:checkstyle-suppressions.xml=411E36175F6BD85695B2149F1720A25D237476A4
-/Users/qinyujie/xdev/github/global-result-handler/global-result-handler-core/src/main/java/com/feiniaojin/grh/core/advice/NotVoidResponseBodyAdvice.java=1593236521000
+/Users/qinyujie/xdev/github/global-result-handler/global-result-handler-core/src/main/java/com/feiniaojin/grh/core/advice/NotVoidResponseBodyAdvice.java=1593267125000
+/Users/qinyujie/xdev/github/global-result-handler/global-result-handler-core/src/main/java/com/feiniaojin/grh/core/support/SwaggerChecker.java=1593265444000
 /Users/qinyujie/xdev/github/global-result-handler/global-result-handler-core/src/main/java/com/feiniaojin/grh/core/advice/GlobalExceptionAdvice.java=1593236521000
 /Users/qinyujie/xdev/github/global-result-handler/global-result-handler-core/src/main/java/com/feiniaojin/grh/core/advice/HttpExceptionAdvice.java=1593236521000
-/Users/qinyujie/xdev/github/global-result-handler/global-result-handler-core/src/main/java/com/feiniaojin/grh/core/check/SwaggerChecker.java=1593236521000
-/Users/qinyujie/xdev/github/global-result-handler/global-result-handler-core/src/main/java/com/feiniaojin/grh/core/advice/SwaggerResponseBodyAdvice.java=1593236521000
 /Users/qinyujie/xdev/github/global-result-handler/global-result-handler-core/src/main/java/com/feiniaojin/grh/core/advice/VoidResponseBodyAdvice.java=1593236521000
 /Users/qinyujie/xdev/github/global-result-handler/global-result-handler-core/src/main/java/com/feiniaojin/grh/core/config/GlobalResultHandlerConfigProperties.java=1593236521000
-configuration*?=5FCF5BD67A4717BD32737DEDDF6DE0C86374630
 module-resource*?\:checkstyle-xpath-suppressions.xml=837D79FC082CA4F420387ACCE3E64D1D5D14A82B
+configuration*?=5FCF5BD67A4717BD32737DEDDF6DE0C86374630

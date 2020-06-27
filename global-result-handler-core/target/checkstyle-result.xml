@@ -1,17 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <checkstyle version="8.32">
-<file name="/Users/qinyujie/xdev/github/global-result-handler/global-result-handler-core/src/main/java/com/feiniaojin/grh/core/config/GlobalResultHandlerConfigProperties.java">
-</file>
-<file name="/Users/qinyujie/xdev/github/global-result-handler/global-result-handler-core/src/main/java/com/feiniaojin/grh/core/advice/GlobalExceptionAdvice.java">
-</file>
-<file name="/Users/qinyujie/xdev/github/global-result-handler/global-result-handler-core/src/main/java/com/feiniaojin/grh/core/advice/HttpExceptionAdvice.java">
-</file>
-<file name="/Users/qinyujie/xdev/github/global-result-handler/global-result-handler-core/src/main/java/com/feiniaojin/grh/core/advice/NotVoidResponseBodyAdvice.java">
-</file>
-<file name="/Users/qinyujie/xdev/github/global-result-handler/global-result-handler-core/src/main/java/com/feiniaojin/grh/core/advice/VoidResponseBodyAdvice.java">
-</file>
-<file name="/Users/qinyujie/xdev/github/global-result-handler/global-result-handler-core/src/main/java/com/feiniaojin/grh/core/advice/SwaggerResponseBodyAdvice.java">
-</file>
-<file name="/Users/qinyujie/xdev/github/global-result-handler/global-result-handler-core/src/main/java/com/feiniaojin/grh/core/check/SwaggerChecker.java">
+<file name="/Users/qinyujie/xdev/github/global-result-handler/global-result-handler-core/src/main/java/com/feiniaojin/grh/core/support/SwaggerResponseBodyAdvice.java">
+<error line="33" column="32" severity="warning" message="&apos;&amp;&amp;&apos; 应另起一行。" source="com.puppycrawl.tools.checkstyle.checks.whitespace.OperatorWrapCheck"/>
 </file>
 </checkstyle>

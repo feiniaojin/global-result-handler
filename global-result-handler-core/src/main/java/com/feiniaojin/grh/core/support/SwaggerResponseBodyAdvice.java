@@ -1,10 +1,9 @@
-package com.feiniaojin.grh.core.advice;
+package com.feiniaojin.grh.core.support;
 
-import com.feiniaojin.grh.core.check.SwaggerChecker;
-import javax.annotation.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.core.MethodParameter;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.MediaType;
@@ -21,19 +20,18 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
  */
 @ControllerAdvice
 @Order(value = 900)
-@ConditionalOnClass(name = {"springfox.documentation.swagger.web.ApiResourceController",
-    "springfox.documentation.swagger2.web.Swagger2Controller"})
 public class SwaggerResponseBodyAdvice implements ResponseBodyAdvice<Object> {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(SwaggerResponseBodyAdvice.class);
 
-  @Resource
-  private SwaggerChecker swaggerChecker;
+  @Autowired(required = false)
+  private SwaggerChecker swaggerChecker = null;
 
   @Override
   public boolean supports(MethodParameter methodParameter,
                           Class<? extends HttpMessageConverter<?>> clazz) {
-    if (swaggerChecker.isSwaggerClass(methodParameter.getContainingClass())) {
+    if (swaggerChecker != null &&
+        swaggerChecker.isSwaggerClass(methodParameter.getContainingClass())) {
       return true;
     }
 

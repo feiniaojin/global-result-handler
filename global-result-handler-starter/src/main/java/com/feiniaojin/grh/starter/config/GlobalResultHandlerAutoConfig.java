@@ -1,7 +1,8 @@
 package com.feiniaojin.grh.starter.config;
 
-import com.feiniaojin.grh.core.check.SwaggerChecker;
+import com.feiniaojin.grh.core.support.SwaggerChecker;
 import com.feiniaojin.grh.core.config.GlobalResultHandlerConfigProperties;
+import com.feiniaojin.grh.core.support.SwaggerResponseBodyAdvice;
 import com.feiniaojin.grh.def.HttpExceptionConverter;
 import com.feiniaojin.grh.def.ResponseBeanFactory;
 import com.feiniaojin.grh.def.ResponseMetaFactory;
@@ -10,7 +11,7 @@ import com.feiniaojin.grh.def.defaults.DefaultHttpExceptionConverter;
 import com.feiniaojin.grh.def.defaults.DefaultResponseBeanFactory;
 import com.feiniaojin.grh.def.defaults.DefaultResponseMetaFactory;
 import com.feiniaojin.grh.def.defaults.DefaultValidationExceptionConverter;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -30,12 +31,17 @@ import org.springframework.context.annotation.Configuration;
 public class GlobalResultHandlerAutoConfig {
 
   @Bean
-  @ConditionalOnClass(name = {"springfox.documentation.swagger.web.ApiResourceController",
-      "springfox.documentation.swagger2.web.Swagger2Controller"})
+  @ConditionalOnBean(name = {"apiResourceController",
+      "swagger2Controller"})
   public SwaggerChecker swaggerChecker() {
     return new SwaggerChecker();
   }
 
+  @Bean
+  @ConditionalOnBean(name = {"swaggerChecker"})
+  public SwaggerResponseBodyAdvice swaggerResponseBodyAdvice() {
+    return new SwaggerResponseBodyAdvice();
+  }
 
   @Bean
   @ConditionalOnMissingBean(value = {ResponseBeanFactory.class})
