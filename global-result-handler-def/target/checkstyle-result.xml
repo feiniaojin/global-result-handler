@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="8.32">
+<file name="/Users/qinyujie/xdev/github/global-result-handler/global-result-handler-def/src/main/java/com/feiniaojin/grh/def/ResponseMeta.java">
+</file>
+<file name="/Users/qinyujie/xdev/github/global-result-handler/global-result-handler-def/src/main/java/com/feiniaojin/grh/def/ValidationExceptionConverter.java">
+</file>
+<file name="/Users/qinyujie/xdev/github/global-result-handler/global-result-handler-def/src/main/java/com/feiniaojin/grh/def/ResponseMetaFactory.java">
+</file>
+<file name="/Users/qinyujie/xdev/github/global-result-handler/global-result-handler-def/src/main/java/com/feiniaojin/grh/def/ResponseBean.java">
+</file>
+<file name="/Users/qinyujie/xdev/github/global-result-handler/global-result-handler-def/src/main/java/com/feiniaojin/grh/def/ExceptionConverter.java">
+</file>
+<file name="/Users/qinyujie/xdev/github/global-result-handler/global-result-handler-def/src/main/java/com/feiniaojin/grh/def/ResponseBeanFactory.java">
+</file>
+<file name="/Users/qinyujie/xdev/github/global-result-handler/global-result-handler-def/src/main/java/com/feiniaojin/grh/def/ExceptionMapper.java">
+</file>
+<file name="/Users/qinyujie/xdev/github/global-result-handler/global-result-handler-def/src/main/java/com/feiniaojin/grh/def/HttpExceptionConverter.java">
+</file>
+</checkstyle>

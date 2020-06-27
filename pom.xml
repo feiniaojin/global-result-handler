@@ -4,20 +4,16 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.feiniaojin</groupId>
-    <artifactId>global-result-handler-starter</artifactId>
-    <version>0.2</version>
-
-    <name>global-result-handler-starter</name>
-    <url>https://github.com/feiniaojin/global-result-handler-starter</url>
-    <description>A global result processor for the SpringBoot project, which can speed up development and improve code
-        quality.
-    </description>
+    <groupId>com.feiniaojin.grh</groupId>
+    <artifactId>global-result-handler</artifactId>
+    <packaging>pom</packaging>
+    <version>0.3</version>
 
     <licenses>
         <license>
             <name>The Apache Software License, Version 2.0</name>
             <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
         </license>
     </licenses>
 
@@ -25,15 +21,16 @@
         <developer>
             <name>feiniaojin</name>
             <email>943868899@qq.com</email>
+            <url>https://github.com/feiniaojin</url>
         </developer>
     </developers>
 
-    <scm>
-        <connection>https://github.com/feiniaojin/global-result-handler-starter</connection>
-        <developerConnection>https://github.com/feiniaojin/global-result-handler-starter</developerConnection>
-        <url>https://github.com/feiniaojin/global-result-handler-starter</url>
-    </scm>
-
+    <modules>
+        <module>global-result-handler-def</module>
+        <module>global-result-handler-defaults</module>
+        <module>global-result-handler-core</module>
+        <module>global-result-handler-starter</module>
+    </modules>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -45,38 +42,32 @@
         <slf4j.version>1.7.30</slf4j.version>
     </properties>
 
-    <dependencies>
-        <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.10</version>
-            <scope>provided</scope>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <version>${spring.boot.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>slf4j-api</artifactId>
-                    <groupId>org.slf4j</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>${slf4j.version}</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-validation -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-validation</artifactId>
-            <version>${spring.boot.version}</version>
-        </dependency>
-    </dependencies>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <version>${spring.boot.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>slf4j-api</artifactId>
+                        <groupId>org.slf4j</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-validation</artifactId>
+                <version>${spring.boot.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <build>
         <plugins>
             <plugin>

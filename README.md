@@ -1,14 +1,12 @@
 # global-result-handler-starter
 
-[toc]
+
 
 ![grh.png](https://s1.ax1x.com/2020/05/21/YbJBtO.png)
 
 # 1. 需求背景
 
-## 1.1 现有问题
-
-在目前前后端分离的开发的场景下，通常的Controller伪代码是这样的:
+在前后端分离的开发场景下，通常的Controller伪代码是这样的:
 
 ```java
 @GetMapping
@@ -22,7 +20,7 @@ public Result GeneralPageQuery(Parameter params) {
     try{
         
         //2. 调用Service的一系列操作
-    }cach(Exception e){
+    }catch(Exception e){
         
         //3. 异常处理：一堆丑陋的try...catch，如果有错误码的，还需要手工填充错误码
     }
@@ -44,33 +42,50 @@ public CommonResult<HomeContentResult> content() {
 
 以上代码均来自github流行的项目，通常存在以下几种问题：
 
-**全局异常处理**：处理业务逻辑时可能会产生各种异常，如果逐个对异常进行捕获处理，既显得代码冗余，也影响开发效率。
+* 手工进行封装统一响应格式
 
-**接口参数校验及错误提示**：接口参数的某些校验属于重复体力劳动，例如非空校验、长度校验等，可以交给类似 Hibernate Validator 这样的Bean Validation框架进行处理。
+  为方便移动端处理接口返回值，通常要求将结果按照约定的格式封装起来。这个封装的操作大部分开发人员都是自己完成的。例如上文中的
 
-**接口错误码**：对外提供的API，处理业务逻辑时发生了异常，不能直接给调用方返回异常堆栈信息，而是要返回这个异常对应的错误码，便于双方开发人员对接。
+  ```java
+  Result result = new Result();
+  CommonResult.success(contentResult);
+  ```
 
-**统一响应格式**：移动端处理接口返回值时，通常要求将结果封装起来，这个封装的操作大部分开发人员都是自己完成的。
+  每一个接口都需要开发人员手工创建一个Result、CommonResult，属于低效的重复劳动。
 
-例如要封装成以下响应格式：	
+  一般的，通常需要将处理结果封装到类似如下格式的Java Bean中
 
-```java
-public class ResponseBean{
-  private int code ;
-  private String msg ;
-  private Object data ;
-}
-```
+  ```java
+  public class ResponseBean{
+    private int code ;
+    private String msg ;
+    private Object data ;
+  }
+  ```
 
-就需要
+  每次有返回结果时，执行
 
-```java
-ResponseBean bean=new ResponseBean();
-bean.setData(data);
-return bean;
-```
+  ```java
+  ResponseBean bean=new ResponseBean();
+  bean.setData(data);
+  return bean;
+  ```
 
-每个接口都手工创建一次，非常的不优雅。`global-result-handler-starter`一次性解决以上所有问题。
+* 混乱的异常处理体系
+  * 虽然`@ExceptionHandler`已经存在了很多年，但是很多程序员还是习惯在每个接口进行异常捕获，然后根据不同的异常，封装异常码到上述的Result、CommonResult中，满篇的try……catch既显得代码冗余，也影响开发效率，还影响代码的可读性。
+  * 对外提供的API，处理业务逻辑时发生了异常，不能直接给调用方返回异常堆栈信息，而是要返回这个异常对应的错误码，便于双方开发人员对接。
+  * 异常类并没有和异常错误码进行关联，在抛出异常时，需要到枚举类、到定义类中找到异常对应的异常码，既容易出错，也非常低效。
+
+* 接口参数校验及错误提示
+
+  * 接口参数的某些校验属于重复体力劳动，例如非空校验、长度校验等，可以交给类似` Hibernate Validator` 这样的Bean Validation框架进行处理。
+  * Validator校验出来的异常，还需要跟匹配成开发者自定义的异常，方便返回错误码。
+
+* Http异常转换
+
+  在进行REST微服务开发时，Http协议本身会返回各种状态码，我们希望统一转成200，并返回自定义的异常码。
+
+以上所有问题，**`global-result-handler-starter`**一次性解决。
 
 ---
 
@@ -174,7 +189,7 @@ public void delete(@PathVariable Long id) {
 </dependency>
 ```
 
-* 目前可用的版本是0.2
+* 目前可用的版本是0.3
 
 ## 2.2 通过注解开启统一处理
 

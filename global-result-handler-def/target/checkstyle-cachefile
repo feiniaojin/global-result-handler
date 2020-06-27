@@ -1,0 +1,12 @@
+#Sat Jun 27 13:26:43 CST 2020
+module-resource*?\:checkstyle-suppressions.xml=411E36175F6BD85695B2149F1720A25D237476A4
+/Users/qinyujie/xdev/github/global-result-handler/global-result-handler-def/src/main/java/com/feiniaojin/grh/def/HttpExceptionConverter.java=1593234240000
+/Users/qinyujie/xdev/github/global-result-handler/global-result-handler-def/src/main/java/com/feiniaojin/grh/def/ExceptionMapper.java=1593161084000
+/Users/qinyujie/xdev/github/global-result-handler/global-result-handler-def/src/main/java/com/feiniaojin/grh/def/ResponseMetaFactory.java=1593234191000
+/Users/qinyujie/xdev/github/global-result-handler/global-result-handler-def/src/main/java/com/feiniaojin/grh/def/ResponseMeta.java=1593178816000
+/Users/qinyujie/xdev/github/global-result-handler/global-result-handler-def/src/main/java/com/feiniaojin/grh/def/ResponseBean.java=1593234236000
+/Users/qinyujie/xdev/github/global-result-handler/global-result-handler-def/src/main/java/com/feiniaojin/grh/def/ResponseBeanFactory.java=1593234229000
+/Users/qinyujie/xdev/github/global-result-handler/global-result-handler-def/src/main/java/com/feiniaojin/grh/def/ValidationExceptionConverter.java=1593234180000
+configuration*?=8F51A593B44AD642D99C73F31E1868470ACD7FA5
+module-resource*?\:checkstyle-xpath-suppressions.xml=837D79FC082CA4F420387ACCE3E64D1D5D14A82B
+/Users/qinyujie/xdev/github/global-result-handler/global-result-handler-def/src/main/java/com/feiniaojin/grh/def/ExceptionConverter.java=1593234344000
