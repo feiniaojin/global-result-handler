@@ -3,9 +3,9 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>global-result-handler</artifactId>
         <groupId>com.feiniaojin.grh</groupId>
-        <version>0.3</version>
+        <artifactId>global-result-handler</artifactId>
+        <version>1.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -15,7 +15,7 @@
         <dependency>
             <groupId>com.feiniaojin.grh</groupId>
             <artifactId>global-result-handler-def</artifactId>
-            <version>0.3</version>
+            <version>1.0</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -37,4 +37,15 @@
         </dependency>
     </dependencies>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.feiniaojin.grh</groupId>
+                <artifactId>global-result-handler-bom</artifactId>
+                <version>1.0</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>

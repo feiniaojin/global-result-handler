@@ -7,7 +7,7 @@
     <groupId>com.feiniaojin.grh</groupId>
     <artifactId>global-result-handler</artifactId>
     <packaging>pom</packaging>
-    <version>0.3</version>
+    <version>1.0</version>
 
     <licenses>
         <license>
@@ -29,7 +29,9 @@
         <module>global-result-handler-def</module>
         <module>global-result-handler-defaults</module>
         <module>global-result-handler-core</module>
-        <module>global-result-handler-starter</module>
+        <module>global-result-handler-boot-starter</module>
+        <module>global-result-handler-bom</module>
+        <module>global-result-handler-example</module>
     </modules>
 
     <properties>

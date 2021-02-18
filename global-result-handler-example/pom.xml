@@ -9,12 +9,16 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>global-result-handler-core</artifactId>
+    <artifactId>global-result-handler-example</artifactId>
 
     <dependencies>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.feiniaojin.grh</groupId>
-            <artifactId>global-result-handler-defaults</artifactId>
+            <artifactId>global-result-handler-boot-starter</artifactId>
             <version>1.0</version>
         </dependency>
     </dependencies>
@@ -22,13 +26,19 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>com.feiniaojin.grh</groupId>
-                <artifactId>global-result-handler-bom</artifactId>
-                <version>1.0</version>
-                <type>pom</type>
-                <scope>import</scope>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <version>2.2.3.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>com.feiniaojin</groupId>
+                <artifactId>chestnut-bom</artifactId>
+                <version>1.1</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
 
+    <build>
+        <finalName>chestnut-example</finalName>
+    </build>
 </project>

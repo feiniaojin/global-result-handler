@@ -2,13 +2,37 @@
 
 [toc]
 
-
-
-![grh.png](https://mmbiz.qpic.cn/sz_mmbiz_png/sNtDzfAUItLBQVqZRJ0JJqLcricBO6g6GbCPqeq1vmqUyw1ZW5jz0P4YTUuXrs28kmMD84NZmRQRLAMXyHBn4vQ/0?wx_fmt=png)
-
 # 1. 需求背景
 
-在前后端分离的开发场景下，通常的Controller伪代码是这样的:
+在前后端分离的开发场景下，接口的开发通常有几种需求：
+
+## 1.1 封装统一的返回格式
+
+为方便移动端处理接口返回值，通常要求将结果按照约定的格式封装起来，例如将操作结果封装到下面名为**ResponseBean**的JavaBean中：
+
+```java
+public class ResponseBean{
+  private int code ;
+  private String msg ;
+  private Object data ;
+}
+```
+
+每次有返回结果时，执行
+
+```java
+ResponseBean bean=new ResponseBean();
+bean.setData(data);
+bean.setCode(0);
+bean.setMsg("success");
+return bean;
+```
+
+## 1.2 统一异常处理及错误码
+
+在开发中，接口执行过程发生异常，不能直接返回异常堆栈信息，需要将异常信息包装成异常码统一返回。
+
+伪代码是这样的:
 
 ```java
 @GetMapping
@@ -16,17 +40,13 @@
 public Result GeneralPageQuery(Parameter params) {
     
     Result result = new Result();
-    
-    //1. 校验params参数，非空校验、长度校验
-    
+    //TODO 1.校验params参数，非空校验、长度校验
     try{
-        
-        //2. 调用Service的一系列操作
+        //TODO 2.调用Service的一系列操作
+        //TODO 3.将操作结果设置到result对象中
     }catch(Exception e){
-        
-        //3. 异常处理：一堆丑陋的try...catch，如果有错误码的，还需要手工填充错误码
+        //TODO 4.异常处理：一堆丑陋的try...catch，如果有错误码的，还需要手工填充错误码
     }
-    
     return result;
 }
 ```
@@ -42,156 +62,41 @@ public CommonResult<HomeContentResult> content() {
 }
 ```
 
-以上代码均来自github高星流行的项目，通常存在以下几种问题：
+## 1.3 接口参数校验及友好的错误提示
 
-* 手工进行封装统一响应格式
+* 接口参数的某些校验属于重复体力劳动，例如非空校验、长度校验等，可以交给类似` Hibernate Validator` 这样的Bean Validation框架进行处理。
+* Validator校验出来的异常，还需要跟匹配成开发者自定义的异常，方便返回错误码。
 
-  为方便移动端处理接口返回值，通常要求将结果按照约定的格式封装起来。这个封装的操作大部分开发人员都是自己完成的。例如上文中的
+## 1.4 Http异常转换
 
-  ```java
-  Result result = new Result();
-  CommonResult.success(contentResult);
-  ```
+在进行REST微服务开发时，Http协议本身会返回各种状态码，我们希望统一转成200，并返回自定义的异常码，例如：
 
-  每一个接口都需要开发人员手工创建一个Result、CommonResult，属于低效的重复劳动。
+发生404的http错误时，需要将http响应码改为200，并返回
 
-  一般的，通常需要将处理结果封装到类似如下格式的Java Bean中
-
-  ```java
-  public class ResponseBean{
-    private int code ;
-    private String msg ;
-    private Object data ;
-  }
-  ```
-
-  每次有返回结果时，执行
-
-  ```java
-  ResponseBean bean=new ResponseBean();
-  bean.setData(data);
-  return bean;
-  ```
-
-* 混乱的异常处理体系
-  * 虽然`@ExceptionHandler`已经存在了很多年，但是很多程序员还是习惯在每个接口进行异常捕获，然后根据不同的异常，封装异常码到上述的Result、CommonResult中，满篇的try……catch既显得代码冗余，也影响开发效率，还影响代码的可读性。
-  * 对外提供的API，处理业务逻辑时发生了异常，不能直接给调用方返回异常堆栈信息，而是要返回这个异常对应的错误码，便于双方开发人员对接。
-  * 异常类并没有和异常错误码进行关联，在抛出异常时，需要到枚举类、到定义类中找到异常对应的异常码，既容易出错，也非常低效。
-
-* 接口参数校验及错误提示
-
-  * 接口参数的某些校验属于重复体力劳动，例如非空校验、长度校验等，可以交给类似` Hibernate Validator` 这样的Bean Validation框架进行处理。
-  * Validator校验出来的异常，还需要跟匹配成开发者自定义的异常，方便返回错误码。
-
-* Http异常转换
-
-  在进行REST微服务开发时，Http协议本身会返回各种状态码，我们希望统一转成200，并返回自定义的异常码。
-
-以上所有问题，`global-result-handler-starter`一次性解决。
-
-# 2. global-result-handler-starter案例代码
-
-以下是使用`global-result-handler-starter`进行开发的代码：
-
-```java
-@PostMapping
-public Long add(@RequestBody TaskDTO.Info info) {
-    if(log.isDebugEnabled()){
-        log.debug("TaskDTO.Info=[{}]",gson.toJson(info));
-    }
-    return taskService.add(info);
-}
-
-@GetMapping
-public TaskDTO.Page pageList(TaskDTO.Query query) {
-
-    if(log.isDebugEnabled()){
-        log.debug("TaskDTO.Query=[{}]",gson.toJson(query));
-    }
-   TaskDTO.Page page= taskService.pageList(query);
-   if(log.isDebugEnabled()){
-        log.debug("TaskDTO.Page=[{}]",gson.toJson(page));
-    }
-   return page;
-}
-
-@GetMapping("/{id}")
-public TaskDTO.DetailInfo detail(@PathVariable Long id) {
-
-    if(log.isDebugEnabled()){
-        log.debug("Getting Task detail,id=[{}]",id);
-    }
-    TaskDTO.DetailInfo detailInfo = taskService.getById(id);
-    if(log.isDebugEnabled()){
-        log.debug("Task detail=[{}]",gson.toJson(detailInfo));
-    }
-    return detailInfo;
-}
-
-@PutMapping("/{id}")
-public void update(@PathVariable String id, TaskDTO.Info info) {
-    if(log.isDebugEnabled()){
-        log.debug("TaskDTO.Info=[{}]",gson.toJson(info));
-    }
-    taskService.updateById(info);
-}
-
-@DeleteMapping("/{id}")
-public void delete(@PathVariable Long id) {
-    if(log.isDebugEnabled()){
-        log.debug("Deleting Task ,id=[{}]",id);
-    }
-    taskService.deleteById(id);
-}
+```json
+｛
+	"code":"1404",
+	"msg":"接口不存在"
+｝
 ```
 
-以上代码具有以下特点
+# 2. quick start
 
-* 代码优雅、简洁、直观
+## 2.1 导入pom依赖
 
-* 在DTO中结合Validator进行校验
-
-* 直接返回所需要的结果，不需要每个接口都new ResponseBean()
-
-* 统一异常处理，业务异常结合异常码，也是阿里巴巴《Java开发手册》所推荐的
-
-  异常的抛出主要在service层，例如
-
-  ```java
-  public TaskDTO.Info getInfoById(Long id) {
-  	Task info = taskExMapper.selectByPrimaryKey(id);
-  	if(info == null){
-  		throw new CommonException.NotFoundException();
-  	}
-  	return entity2Info(info);
-  }
-  ```
-
-  而CommonException.NotFoundException异常在抛出时，已经定义了异常码
-
-  ```java
-  @ExceptionMapper(code = 1404,msg = "Not found！")
-  public static class NotFoundException extends RuntimeException {
-  }
-  ```
-
-# 3. global-result-handler-starter使用教程
-
-## 3.1 引入starter
-
-**global-result-handler-starter**目前已发布到Maven中央仓库，可以直接在项目的pom文件中引入。
+**global-result-handler-boot-starter**目前已发布到Maven中央仓库，可以直接在项目的pom文件中引入。
 
 ```xml
 <dependency>
   <groupId>com.feiniaojin.grh</groupId>
-  <artifactId>global-result-handler-starter</artifactId>
-  <version>0.3</version>
+  <artifactId>global-result-handler-boot-starter</artifactId>
+  <version>1.0</version>
 </dependency>
 ```
 
-* 目前可用的版本是0.3
+* 目前可用的版本是1.0
 
-## 3.2 在启动类上通过注解开启统一处理
+## 2.2 在启动类上通过注解开启统一处理
 
 ```java
 @EnableGlobalResultHandler
@@ -203,7 +108,7 @@ public class ExampleApplication {
 }
 ```
 
-## 3.3 在DTO中设置校验
+## 2.3 请求参数校验
 
 grh的接口参数校验，采用的是Hibernate Validator原生的方法，并未提供任何新增的校验方法，保证了代码的可移植性，只要是Hibernate Validator支持的校验方式，grh即兼容。
 
@@ -226,7 +131,7 @@ public class RequestDTO {
 }
 ```
 
-## 3.4 创建业务异常时加上@ExceptionMapper注解
+## 2.4 统一异常处理及返回封装
 
 在创建业务异常时，使用`@ExceptionMapper`进行注解，并设置异常错误码和提示信息。
 
@@ -247,7 +152,7 @@ public class ExampleExceptions {
 }
 ```
 
-## 3.5 关闭spring mvc的自动匹配
+## 2.5 关闭spring mvc的自动匹配
 
 ```yaml
 spring:
@@ -257,9 +162,9 @@ spring:
     add-mappings: false
 ```
 
-## 3.6 实现具体业务逻辑
+# 3. 案例代码
 
-以下代码来自example工程的`ExampleController`
+以下是使用`global-result-handler-boot-starter`进行开发的代码，细节见**global-result-handler-example**：
 
 ```java
 /**
@@ -278,21 +183,26 @@ public class ExampleController {
   private ExampleService exampleService;
 
   /**
-   * 测试空返回值.
+   * 测试空返回值，直接返回空值，自动封装.
    */
   @RequestMapping("/void")
   @ResponseBody
-  @ApiOperation(value = "测试返回空值", notes = "")
   public void testVoidResponse() {
 
   }
 
+   /**
+   * 测试抛出参数校验异常的情景
+   */
   @RequestMapping("/validate")
   @ResponseBody
   public void testValidateException(@Validated RequestDto dto) {
     log.info(dto.toString());
   }
 
+   /**
+   * 测试在方法入参进行参数校验的情景
+   */
   @RequestMapping("/success")
   @ResponseBody
   public RequestDto testSuccess(@Validated RequestDto dto) {
@@ -300,6 +210,9 @@ public class ExampleController {
     return dto;
   }
 
+   /**
+   * 测试成功返回单个对象的情景
+   */
   @RequestMapping("/get")
   @ResponseBody
   public ResponseDto get(Long id) {
@@ -396,110 +309,32 @@ public class ExampleController {
 }
 ```
 
-## 3.7 demo工程的结构
+以上代码具有以下特点
 
-![a.png](https://s1.ax1x.com/2020/05/21/YbJd76.png)
+* 代码优雅、简洁、直观
 
-## 3.8 Swagger2支持
+* 在DTO中结合Validator进行校验
 
-从0.2版本开始，添加对Swagger2的支持。
+* 直接返回所需要的结果，不需要每个接口都new ResponseBean()
 
-* 添加Swagger2的依赖，目前只测试了2.6.0版本的
+* 统一异常处理，业务异常结合异常码，也是阿里巴巴《Java开发手册》所推荐的
 
-  ```xml
-  <dependency>
-      <groupId>io.springfox</groupId>
-      <artifactId>springfox-swagger-ui</artifactId>
-      <version>2.6.0</version>
-  </dependency>
-  <dependency>
-      <groupId>io.springfox</groupId>
-      <artifactId>springfox-swagger2</artifactId>
-      <version>2.6.0</version>
-  </dependency>
+  异常的抛出主要在service层，例如
+
+  ```java
+  public TaskDTO.Info getInfoById(Long id) {
+  	Task info = taskExMapper.selectByPrimaryKey(id);
+  	if(info == null){
+  		throw new CommonException.NotFoundException();
+  	}
+  	return entity2Info(info);
+  }
   ```
 
-* 在工程中添加springmvc的静态路径
+  而CommonException.NotFoundException异常在抛出时，已经定义了异常码
 
-  ```yaml
-  spring:
-    mvc:
-      throw-exception-if-no-handler-found: true
-      static-path-pattern: "*.html"
-      add-mappings: false
+  ```java
+  @ExceptionMapper(code = 1404,msg = "Not found！")
+  public static class NotFoundException extends RuntimeException {
+  }
   ```
-
-  如果不添加，grh将会拦截html
-
-## 3.9 自定义返回格式和默认异常码
-
-从0.3版本开始，支持自定义默认异常码和统一返回的格式。
-
-要支持自定义默认异常码和统一返回的格式，可以参考`global-result-handler-defaults`，该模块提供了很多默认的实现。
-
-具体步骤如下：
-
-### 3.9.1 增加maven依赖
-
-增加`global-result-handler-def`的依赖
-
-```xml
-<dependency>
-    <groupId>com.feiniaojin.grh</groupId>
-    <artifactId>global-result-handler-def</artifactId>
-    <version>0.3</version>
-</dependency>
-```
-
-`global-result-handler-def`只有一些定义的interface注解，不包含任何实现，也不包含任何第三方库，可以直接在api接口定义中引入。
-
-### 3.9.2 提供自定义实现
-
-参考`global-result-handler-defaults`，对需要自定义的内容进行实现。
-
-### 3.9.3 Spring Boot中配置实例化
-
-将自定义的组件配置到Spring Boot中，即可替换默认的实现。
-
-# 4. 版本历史
-
-## 0.1
-
-基本功能的实现，用于作者个人项目，实现的功能有：
-
-* 统一异常处理
-* 参数校验并返回
-* 统一返回格式
-* 异常与错误码关联
-
-## 0.2
-
-* 增加对swagger的支持
-
-## 0.3
-
-* 支持自定义默认错误码
-* 支持自定义返回格式
-* 支持自定义http状态码与异常关联
-* 支持自定义参数校验异常与异常关联
-* example工程中测试spring boot跳转静态页面
-
-# 5. 源码地址
-
-以上的所有实现，是基于笔者在实际开发中的需求进行抽象设计的，未必适合所有的情形，欢迎提交PR。
-
-该项目的源码已上传至github，有需要的同学可以clone下来进行二次开发。
-
-github:
-
-> starter: https://github.com/feiniaojin/global-result-handler.git
->
-> example: https://github.com/feiniaojin/global-result-handler-starter-example.git
-
-global-result-handler-starter-example需要搭配对应版本的global-result-handler-starter，二者的版本号一致。
-
-联系方式：
-
-> 微信：qyj000100
->
-> 邮箱：943868899@qq.com

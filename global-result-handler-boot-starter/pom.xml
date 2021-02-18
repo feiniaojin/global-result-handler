@@ -9,12 +9,12 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>global-result-handler-core</artifactId>
+    <artifactId>global-result-handler-boot-starter</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>com.feiniaojin.grh</groupId>
-            <artifactId>global-result-handler-defaults</artifactId>
+            <artifactId>global-result-handler-core</artifactId>
             <version>1.0</version>
         </dependency>
     </dependencies>

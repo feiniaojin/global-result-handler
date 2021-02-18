@@ -3,7 +3,7 @@ package com.feiniaojin.grh.def;
 /**
  * 响应体接口，响应的数据应实现该接口.
  *
- * @author <a href="mailto:qinyujie@gingo.cn">Yujie</a>
+ * @author <a href="mailto:943868899@qq.com">Yujie</a>
  * @version 0.1
  */
 public interface ResponseBean {
